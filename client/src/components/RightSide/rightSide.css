@@ -1,0 +1,9 @@
+.right-side {
+  flex: 1;
+}
+.right-kichu-ekta {
+  width: 20pc;
+  height: 50vh;
+  background-color: white;
+  margin-top: 10px;
+}

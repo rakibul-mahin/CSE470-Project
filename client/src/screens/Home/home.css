@@ -1,0 +1,10 @@
+.home {
+  background-color: rgb(255, 255, 255);
+  height: 100vh;
+}
+.component-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}

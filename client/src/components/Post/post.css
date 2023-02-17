@@ -1,0 +1,44 @@
+.sub-post-container {
+  width: 95%;
+  background-color: rgb(218, 238, 184);
+  margin-top: 10px;
+  margin-left: 22px;
+  border-radius: 10px;
+}
+.user-details {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+.username {
+  margin-left: 10px;
+}
+.post-text {
+  text-align: start;
+  width: 90%;
+  margin-left: 10px;
+}
+.post-image {
+  width: 800px;
+  height: 800px;
+  object-fit: contain;
+  margin-left: 20px;
+  margin-top: -130px;
+}
+.reactions {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+}
+.reaction-icon {
+  width: 50px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.more-vert-icon {
+  width: 30px;
+  margin-left: 600px;
+}
+.reaction-icon-heat {
+  color: orange;
+}

@@ -1,0 +1,71 @@
+.icons {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: white;
+}
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  margin-left: 20px;
+}
+.search-input-container {
+  display: flex;
+  align-items: center;
+  flex: 4;
+  margin-top: 2px;
+  background-color: rgb(56, 78, 220);
+  padding: 10px;
+  border-radius: 10px;
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+  flex: 0.2;
+}
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: auto;
+  background-color: rgb(22, 33, 182);
+  padding: 5px;
+  border-bottom-left-radius: 30px;
+}
+.logo-container {
+  flex: 0.2;
+  color: white;
+}
+.search-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: white;
+}
+.profile-name {
+  margin-left: 15px;
+  color: white;
+  font-size: 20px;
+}
+.search-input {
+  width: 30pc;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgb(56, 78, 220);
+  color: white;
+  font-size: 20px;
+}
+.info-container {
+  display: flex;
+  align-items: center;
+}
+.p-icon {
+  margin-right: 15px;
+  transition: 0.5s ease-in-out;
+}
+.p-icon:hover {
+  color: rgb(239, 73, 23);
+}

@@ -4,12 +4,73 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ForumIcon from "@mui/icons-material/Forum";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ForwardIcon from "@mui/icons-material/Forward";
 import axios from "axios";
+import { useSelector } from "react-redux";
+
 const Post = ({ post }) => {
-  const [heat, setHeat] = useState(false);
+  const userDetails = useSelector((state) => state.user);
+  let users = userDetails.user;
+  const accesstoken = users.accessToken;
+  const [heat, setHeat] = useState(
+    post.like.includes(users.user._id) ? true : false
+  );
+
+  const [count, setCount] = useState(post.like.length);
+  const [comment, setComment] = useState(post.comments);
+  const [commentWriting, setCommentWriting] = useState("");
+  const [showComment, setShowComment] = useState(false);
+
   const [user, setUser] = useState([]);
-  const handelHeat = () => {
-    setHeat(!heat);
+  const addComment = async () => {
+    try {
+      const fake_comment = {
+        postid: `${post._id}`,
+        username: `${users.user.username}`,
+        userimage: `${users.user.userimage}`,
+        comment: `${commentWriting}`,
+      };
+      await axios.put(`http://localhost:5000/api/post/comment`, fake_comment, {
+        headers: {
+          token: accesstoken,
+        },
+      });
+      setComment(comment.concat(fake_comment));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handelHeat = async () => {
+    try {
+      if (heat === true) {
+        await axios.put(
+          `http://localhost:5000/api/like/${post._id}`,
+          { uid: users.user._id },
+          {
+            headers: {
+              token: accesstoken,
+            },
+          }
+        );
+        setHeat(false);
+        setCount(count - 1);
+      } else {
+        await axios.put(
+          `http://localhost:5000/api/like/${post._id}`,
+          { uid: users.user._id },
+          {
+            headers: {
+              token: accesstoken,
+            },
+          }
+        );
+        setHeat(true);
+        setCount(count + 1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     const getUser = async () => {
@@ -37,6 +98,13 @@ const Post = ({ post }) => {
     window.open(tweetUrl);
   };
 
+  const handleComment = () => {
+    addComment();
+  };
+
+  const handleCommentClick = () => {
+    setShowComment(!showComment);
+  };
   return (
     <div className='post-container'>
       <div className='sub-post-container'>
@@ -61,17 +129,57 @@ const Post = ({ post }) => {
                   }
                   onClick={handelHeat}
                 />
-                <p>10 Hits</p>
+                <p>{count} Heats</p>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <ForumIcon className='reaction-icon' />
-                <p>5 Comments</p>
+                <ForumIcon
+                  className='reaction-icon'
+                  onClick={handleCommentClick}
+                />
+                <p>{comment.length} Comments</p>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <ShareIcon className='reaction-icon' onClick={shareOnTwitter} />
                 <p>Share</p>
               </div>
             </div>
+            {showComment === true ? (
+              <div>
+                <div className='first-comment'>
+                  <img
+                    src={`${users.user.userimage}`}
+                    alt='profileimg'
+                    className='profile-img'
+                  />
+                  <p className='log-in-username'>{users.user.username}</p>
+                  <input
+                    type='text'
+                    className='log-in-write-comment'
+                    placeholder='Write Comment...'
+                    onChange={(e) => {
+                      setCommentWriting(e.target.value);
+                    }}
+                  />
+                  <ForwardIcon
+                    className='add-comment-btn'
+                    onClick={handleComment}
+                  />
+                </div>
+                {comment.map((items) => (
+                  <div className='all-comments'>
+                    <img
+                      src={`${items.userimage}`}
+                      alt='profileimg'
+                      className='profile-img'
+                    />
+                    <p className='comment-username'>{items.username}</p>
+                    <p className='user-comments'>{items.comment}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

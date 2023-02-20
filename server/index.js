@@ -13,8 +13,8 @@ mongoose
   .then(() => {
     console.log("DB Connected");
   })
-  .catch(() => {
-    console.log("Some Problem Occured");
+  .catch((err) => {
+    console.log(`Some Problem Occured: ${err}`);
   });
 
 app.use(cors());

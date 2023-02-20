@@ -20,11 +20,9 @@ const PostSchema = mongoose.Schema(
     },
     like: {
       type: Array,
-      default: 0,
     },
     dislike: {
       type: Array,
-      default: 0,
     },
     comments: [
       {
@@ -33,6 +31,10 @@ const PostSchema = mongoose.Schema(
           required: true,
         },
         username: {
+          type: String,
+          required: true,
+        },
+        userimage: {
           type: String,
           required: true,
         },

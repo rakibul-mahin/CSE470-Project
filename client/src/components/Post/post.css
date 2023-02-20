@@ -42,3 +42,31 @@
 .reaction-icon-heat {
   color: orange;
 }
+.first-comment {
+  display: flex;
+  align-items: center;
+}
+.log-in-username {
+  margin-left: 10px;
+}
+.log-in-write-comment {
+  margin-left: 15px;
+  width: 25pc;
+  border: none;
+  height: 4vh;
+}
+.add-comment-btn {
+  margin-left: 10px;
+  color: rgb(227, 30, 30);
+  cursor: pointer;
+}
+.all-comments {
+  display: flex;
+  align-items: center;
+}
+.comment-username {
+  margin-left: 10px;
+}
+.user-comments {
+  margin-left: 10px;
+}

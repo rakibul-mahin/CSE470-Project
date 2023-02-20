@@ -54,4 +54,56 @@ module.exports = {
       res.status(500).json({ msg: err.message });
     }
   },
+  likePost: async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      if (!post.like.includes(req.body.uid)) {
+        if (post.dislike.includes(req.body.uid)) {
+          await post.updateOne({ $pull: { dislike: req.body.uid } });
+        }
+        await post.updateOne({ $push: { like: req.body.uid } });
+        return res.status(200).json("Post Liked!!!");
+      } else {
+        await post.updateOne({ $pull: { like: req.body.uid } });
+        return res.status(200).json("Post Disliked!!!");
+      }
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  dislikePost: async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      if (!post.dislike.includes(req.body.uid)) {
+        console.log(req.user._id);
+        if (post.like.includes(req.body.uid)) {
+          await post.updateOne({ $pull: { like: req.body.uid } });
+        }
+        await post.updateOne({ $push: { dislike: req.body.uid } });
+        return res.status(200).json("Post disliked!!!");
+      } else {
+        await post.updateOne({ $pull: { dislike: req.body.uid } });
+        return res.status(200).json("Post Disliked!!!");
+      }
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  writeComment: async (req, res) => {
+    try {
+      const { comment, postid, userimage } = req.body;
+      const comments = {
+        user: req.user.id,
+        username: req.user.username,
+        comment: comment,
+        userimage: userimage,
+      };
+      const post = await Post.findById(postid);
+      post.comments.push(comments);
+      await post.save();
+      res.status(200).json(post);
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
 };

@@ -4,6 +4,31 @@
 .right-kichu-ekta {
   width: 20pc;
   height: 50vh;
-  background-color: white;
+  background-color: rgb(197, 185, 185);
   margin-top: 10px;
+}
+.sm-follow-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  margin-left: 10px;
+}
+.follow-btn {
+  width: 100px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.one-user {
+  display: flex;
+  align-items: center;
+}
+.one-user-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

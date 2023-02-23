@@ -37,4 +37,30 @@ module.exports = {
       res.status(500).json({ msg: err.message });
     }
   },
+  suggestFollower: async (req, res) => {
+    try {
+      const allUser = await User.find();
+      const user = await User.findById(req.user.id);
+      const followingUser = await Promise.all(
+        user.following.map((item) => {
+          return item;
+        })
+      );
+      let UserToFollow = allUser.filter((val) => {
+        return !followingUser.find((item) => {
+          return val._id.toString() === item;
+        });
+      });
+
+      let filterUser = await Promise.all(
+        UserToFollow.map((item) => {
+          return item;
+        })
+      );
+
+      res.status(200).json(filterUser);
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
 };

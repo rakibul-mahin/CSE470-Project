@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./rightSide.css";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Follow from "../Follow/Follow";
 
 const RightSide = () => {
+  const [users, setUsers] = useState([]);
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails.user;
+  const accesstoken = user.accessToken;
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/suggest/user`, {
+          headers: {
+            token: accesstoken,
+          },
+        });
+        setUsers(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUsers();
+  }, []);
+  console.log(users);
   return (
     <div className='right-side'>
       <div className='right-kichu-ekta'>
         <p>Follow Gamers</p>
-        <div>
-          <div className='one-user-container'>
-            <div className='one-user'>
-              <img
-                src='https://images.unsplash.com/photo-1628260412297-a3377e45006f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'
-                alt='sm-user-profile'
-                className='sm-follow-img'
-              />
-              <p style={{ marginLeft: "10px" }}>Gamer Name</p>
-            </div>
-            <div>
-              <button className='follow-btn'>Follow</button>
-            </div>
-          </div>
-        </div>
+        {users.map((item) => (
+          <Follow userdetails={item} key={item._id} />
+        ))}
       </div>
     </div>
   );

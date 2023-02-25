@@ -3,11 +3,13 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../components/Redux/apiCall";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [view, setView] = useState(false)
   const handleLogin = (e) => {
     e.preventDefault();
     login(dispatch, { email, password });
@@ -32,7 +34,8 @@ const Login = () => {
             }}
           />
           <input
-            type='password'
+            type={view ? `text` : `password`}
+            // type='password'
             placeholder='Password'
             name='password'
             id='password'
@@ -41,6 +44,7 @@ const Login = () => {
               setPassword(e.target.value);
             }}
           />
+          <VisibilityIcon onClick={(e)=>setView(!view)} style={{cursor: "pointer"}}/>
           <button className='register-btn' onClick={handleLogin}>
             Dive In
           </button>

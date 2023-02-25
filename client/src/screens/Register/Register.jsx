@@ -3,6 +3,7 @@ import "./register.css";
 import { Link } from "react-router-dom";
 import { register } from "../../components/Redux/apiCall";
 import { useDispatch } from "react-redux";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
+  const [view, setView] = useState(false)
   const handleRegistration = (e) => {
     e.preventDefault();
     register(dispatch, {
@@ -61,12 +63,13 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type='password'
+            type={view ? `text` : `password`}
             placeholder='Password'
             name='password'
             className='input-text'
             onChange={(e) => setPassword(e.target.value)}
           />
+          <VisibilityIcon onClick={(e)=>setView(!view)} style={{cursor: "pointer"}}/>
           <input
             type='password'
             placeholder='Confirm Password'

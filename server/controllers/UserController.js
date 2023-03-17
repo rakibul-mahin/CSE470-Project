@@ -89,4 +89,15 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  getUserNotification: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(400).json({ msg: "User not Found" });
+      }
+      res.status(200).json(user.notifications);
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };

@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 module.exports = {
   createPost: async (req, res) => {
@@ -99,8 +100,18 @@ module.exports = {
         userimage: userimage,
       };
       const post = await Post.findById(postid);
+      const creator = await User.findById(post.user);
+      const comment_writer = {
+        user: req.user.id,
+        username: req.user.username,
+        userimage: userimage,
+        postimg: post.image,
+        type: "commented on your post",
+      };
+      creator.notifications.push(comment_writer);
       post.comments.push(comments);
       await post.save();
+      await creator.save();
       res.status(200).json(post);
     } catch (err) {
       res.status(500).json({ msg: err.message });

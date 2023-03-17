@@ -11,6 +11,17 @@ module.exports = {
         if (!user.followers.includes(req.body.user)) {
           await user.updateOne({ $push: { followers: req.body.user } });
           await otheruser.updateOne({ $push: { following: req.params.id } });
+          // const creator = await User.findById(post.user);
+          const follow_notification = {
+            user: otheruser._id,
+            username: otheruser.username,
+            userimage: otheruser.userimage,
+            postimg: user.userimage,
+            type: "started following you",
+          };
+          user.notifications.push(follow_notification);
+          await user.save();
+          console.log(follow_notification);
           res.status(200).json({ msg: "User Has Followed" });
         } else {
           return res

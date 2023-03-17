@@ -33,6 +33,11 @@ const UserSchema = new mongoose.Schema(
       default:
         "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
     },
+    coverimage: {
+      type: String,
+      default:
+        "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+    },
     mobile: {
       type: String,
       default: "",
@@ -42,6 +47,9 @@ const UserSchema = new mongoose.Schema(
       type: Array,
     },
     following: {
+      type: Array,
+    },
+    notifications: {
       type: Array,
     },
     bio: {

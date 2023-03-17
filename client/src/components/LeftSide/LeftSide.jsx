@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./leftSide.css";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const LeftSide = () => {
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails.user;
+  let id = user.user._id;
+  const accesstoken = user.accessToken;
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/followers-post/${id}`,
+          {
+            headers: {
+              token: accesstoken,
+            },
+          }
+        );
+        setPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getPost();
+  }, []);
   return (
     <div className='left-side'>
       <div className='container-one'>
@@ -83,46 +108,15 @@ const LeftSide = () => {
           <p style={{ color: "#aaa" }}>See all</p>
         </div>
         <div>
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
-          <img
-            src='https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhcnRvb258ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'
-            alt='profimg'
-            className='explore-img'
-          />
+          {post.map((item) =>
+            item.map((image) => (
+              <img
+                src={`${image.image}`}
+                alt='postimg'
+                className='explore-img'
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

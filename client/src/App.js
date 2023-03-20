@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
 import { useSelector } from "react-redux";
+import Profile from "./screens/Profile/Profile";
 
 const App = () => {
   const userDetails = useSelector((state) => state.user);
@@ -22,6 +23,10 @@ const App = () => {
           <Route
             path='/register'
             element={user !== null ? <Navigate to={"/"} /> : <Register />}
+          ></Route>
+          <Route
+            path='/profile'
+            element={user !== null ? <Profile /> : <Login />}
           ></Route>
         </Routes>
       </BrowserRouter>

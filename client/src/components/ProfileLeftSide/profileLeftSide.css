@@ -1,0 +1,75 @@
+.container-one {
+  flex: 1;
+  width: 18pc;
+  height: 50vh;
+  background-color: rgb(0, 0, 0);
+  margin-top: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.left-side {
+  flex: 1;
+}
+
+.left-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.left-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.left-user-detail {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+
+.like-img {
+  width: 50px;
+  height: 50px;
+  margin-left: 70px;
+  border-radius: 15px;
+}
+
+.follow-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 70px;
+}
+
+.explore-img {
+  width: 130px;
+  margin-left: 4px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.profile-page-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 35px;
+}
+
+.profile-page-cover {
+  width: 300px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.follower-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}

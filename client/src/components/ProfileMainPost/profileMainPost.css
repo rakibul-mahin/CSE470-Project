@@ -1,0 +1,10 @@
+.profile-main-post {
+  flex: 4;
+}
+.profile-cover-image {
+  width: 92%;
+  border-radius: 25px;
+  height: 30vh;
+  object-fit: cover;
+  margin-top: 20px;
+}

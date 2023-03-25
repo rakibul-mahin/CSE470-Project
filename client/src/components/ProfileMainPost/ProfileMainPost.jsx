@@ -1,18 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profileMainPost.css";
 import ContentPost from "../../components/ContentPost/ContentPost";
+import ProfilePost from "../ProfilePost/ProfilePost";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const ProfileMainPost = () => {
+  const userDetails = useSelector((state) => state.user);
+  let users = userDetails.user;
+  const accesstoken = users.accessToken;
+  const [post, setPost] = useState([]);
+  let location = useLocation();
+  let id = location.pathname.split("/")[2];
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/get/user-details/${id}`
+        );
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, []);
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/get/post/${id}`);
+        setPost(res.data.mypost);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getPost();
+  }, []);
   return (
     <div className='profile-main-post'>
       <div>
         <img
-          src='https://images.unsplash.com/photo-1616776219911-83b9ca3402ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+          src={`${user.coverimage}`}
           alt='coverimg'
           className='profile-cover-image'
         />
       </div>
-      <ContentPost />
+      {users.user._id === id ? <ContentPost /> : ""}
+
+      {post.map((item) => (
+        <ProfilePost details={item} />
+      ))}
     </div>
   );
 };

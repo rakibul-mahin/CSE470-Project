@@ -1,18 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profileLeftSide.css";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 
 const ProfileLeftSide = () => {
+  let location = useLocation();
+  let uid = location.pathname.split("/")[2];
+  const [followers, setFollowers] = useState([]);
+  const userDetails = useSelector((state) => state.user);
+  let users = userDetails.user;
+
+  useEffect(() => {
+    const getFollower = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/all/follower/${uid}`
+        );
+        setFollowers(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFollower();
+  }, []);
+
+  const [user, setuser] = useState([]);
+  useEffect(() => {
+    const getuser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/get/user-details/${uid}`
+        );
+        setuser(res.data);
+      } catch (error) {
+        console.log("Some error occured");
+      }
+    };
+    getuser();
+  }, []);
+
+  let followersCounter = user?.followers?.length;
+  let followingCounter = user?.following?.length;
+
+  const handleClick = async (id) => {
+    const res = await axios.get(
+      `http://localhost:5000/api/get/user-details/${uid}`
+    );
+    setuser(res.data);
+    window.location.reload(); // Reloads the current page
+  };
+
   return (
     <div className='left-side'>
       <div className='container-one'>
         <img
-          src='https://images.unsplash.com/photo-1616776219911-83b9ca3402ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+          src={`${user.coverimage}`}
           alt='profcover'
           className='profile-page-cover'
         />
         <div style={{ display: "flex", alignItems: "center", marginTop: -40 }}>
           <img
-            src='https://images.unsplash.com/photo-1589419621083-1ead66c96fa7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
+            src={`${user.userimage}`}
             alt='profimage'
             className='profile-page-image'
           />
@@ -25,7 +74,7 @@ const ProfileLeftSide = () => {
                 textAlign: "start",
               }}
             >
-              Mickey Mouse
+              {user.firstname} {user.lastname}
             </p>
           </div>
         </div>
@@ -39,7 +88,7 @@ const ProfileLeftSide = () => {
               marginTop: "20px",
             }}
           >
-            I am a gamer and I only play games
+            {user.bio}
           </p>
         </div>
         <div
@@ -58,7 +107,7 @@ const ProfileLeftSide = () => {
               marginTop: "25px",
             }}
           >
-            10
+            {followersCounter}
           </p>
         </div>
         <div
@@ -77,7 +126,7 @@ const ProfileLeftSide = () => {
               marginTop: "25px",
             }}
           >
-            5
+            {followingCounter}
           </p>
         </div>
         <div
@@ -96,7 +145,7 @@ const ProfileLeftSide = () => {
               marginTop: "25px",
             }}
           >
-            Discord Link
+            {user.gameprofile}
           </p>
         </div>
         <div
@@ -115,7 +164,7 @@ const ProfileLeftSide = () => {
               marginTop: "25px",
             }}
           >
-            Dhaka
+            {user.address}
           </p>
         </div>
         <div
@@ -134,7 +183,7 @@ const ProfileLeftSide = () => {
               marginTop: "25px",
             }}
           >
-            temp@gmail.com
+            {user.email}
           </p>
         </div>
         <div
@@ -153,7 +202,7 @@ const ProfileLeftSide = () => {
               marginTop: "25px",
             }}
           >
-            +88017xxxxxxxx
+            {user.mobile}
           </p>
         </div>
         <button
@@ -176,58 +225,43 @@ const ProfileLeftSide = () => {
       <div className='container-one'>
         <h3 style={{ color: "white" }}>Followers</h3>
         <div>
-          <div
-            style={{ display: "flex", marginLeft: "20px", marginTop: "5px" }}
-          >
-            <img
-              src='https://images.unsplash.com/photo-1616776212814-fab73656dd8e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-              alt='followimg'
-              className='follower-img'
-            />
-            <p style={{ color: "white", marginLeft: "10px" }}>Rakibul</p>
-            <button
+          {followers.map((item) => (
+            <div
               style={{
-                width: "100px",
-                marginLeft: "50px",
-                marginRight: "8px",
-                marginBottom: "10px",
-                padding: "3px",
-                borderRadius: "15px",
-                border: "None",
-                backgroundColor: "green",
-                color: "white",
-                cursor: "pointer",
+                display: "flex",
+                marginLeft: "20px",
+                marginTop: "5px",
               }}
             >
-              View Profile
-            </button>
-          </div>
-          <div
-            style={{ display: "flex", marginLeft: "20px", marginTop: "5px" }}
-          >
-            <img
-              src='https://images.unsplash.com/photo-1616776212814-fab73656dd8e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-              alt='followimg'
-              className='follower-img'
-            />
-            <p style={{ color: "white", marginLeft: "10px" }}>Rakibul</p>
-            <button
-              style={{
-                width: "100px",
-                marginLeft: "50px",
-                marginRight: "8px",
-                marginBottom: "10px",
-                padding: "3px",
-                borderRadius: "15px",
-                border: "None",
-                backgroundColor: "green",
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-              View Profile
-            </button>
-          </div>
+              <img
+                src={`${item.userimage}`}
+                alt='followimg'
+                className='follower-img'
+              />
+              <p style={{ color: "white", marginLeft: "10px" }}>
+                {item.username}
+              </p>
+              <Link to={`/profile/${item._id}`}>
+                <button
+                  style={{
+                    width: "100px",
+                    marginLeft: "50px",
+                    marginRight: "8px",
+                    marginBottom: "10px",
+                    padding: "3px",
+                    borderRadius: "15px",
+                    border: "None",
+                    backgroundColor: "green",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleClick(item._id)}
+                >
+                  View Profile
+                </button>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>

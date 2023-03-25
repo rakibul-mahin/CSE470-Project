@@ -25,7 +25,8 @@ const App = () => {
             element={user !== null ? <Navigate to={"/"} /> : <Register />}
           ></Route>
           <Route
-            path='/profile'
+            // path='profile/:id'
+            path='profile/:id'
             element={user !== null ? <Profile /> : <Login />}
           ></Route>
         </Routes>

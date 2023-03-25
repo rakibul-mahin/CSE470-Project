@@ -5,6 +5,7 @@ import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { logout } from "../Redux/userReducer";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
@@ -16,7 +17,9 @@ const Navbar = () => {
   return (
     <div className='main-navbar'>
       <div className='logo-container'>
-        <h3>GameVerse</h3>
+        <Link to={`/`}>
+          <h3 style={{ textDecoration: "None" }}>GameVerse</h3>
+        </Link>
       </div>
       <div>
         <div className='search-input-container'>
@@ -30,14 +33,16 @@ const Navbar = () => {
           onClick={logoutHandler}
         />
         <ChatIcon className='icons' />
-        <div className='info-container'>
-          <img
-            src={`${userimage}`}
-            alt='profileimage'
-            className='profile-image'
-          />
-          <p className='profile-name'>{username}</p>
-        </div>
+        <Link to={`/profile/${user.user._id}`}>
+          <div className='info-container'>
+            <img
+              src={`${userimage}`}
+              alt='profileimage'
+              className='profile-image'
+            />
+            <p className='profile-name'>{username}</p>
+          </div>
+        </Link>
       </div>
     </div>
   );

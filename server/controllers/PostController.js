@@ -19,7 +19,7 @@ module.exports = {
   },
   getPost: async (req, res) => {
     try {
-      const mypost = await Post.find({ user: req.user.id });
+      const mypost = await Post.find({ user: req.params.id });
       if (!mypost) {
         return res.status(200).json({ msg: "You Don't have any Post" });
       }

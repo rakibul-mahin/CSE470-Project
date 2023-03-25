@@ -74,4 +74,38 @@ module.exports = {
       res.status(500).json({ msg: err.message });
     }
   },
+  allFollowing: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const followingUser = await Promise.all(
+        user.following.map((item) => {
+          return User.findById(item);
+        })
+      );
+      let followingList = [];
+      followingUser?.map((person) => {
+        followingList.push(person);
+      });
+      res.status(200).json(followingList);
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  allFollower: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const followerUser = await Promise.all(
+        user.followers.map((item) => {
+          return User.findById(item);
+        })
+      );
+      let followerList = [];
+      followerUser?.map((person) => {
+        followerList.push(person);
+      });
+      res.status(200).json(followerList);
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
 };

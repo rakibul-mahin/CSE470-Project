@@ -83,8 +83,8 @@ module.exports = {
         return res.status(400).json({ msg: "User not Found" });
       }
 
-      const { email, password, followers, following, ...others } = user._doc;
-      res.status(200).json(others);
+      // const { email, password, followers, following, ...others } = user._doc;
+      res.status(200).json(user);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

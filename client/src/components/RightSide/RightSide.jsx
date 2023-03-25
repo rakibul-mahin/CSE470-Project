@@ -28,7 +28,7 @@ const RightSide = () => {
   return (
     <div className='right-side'>
       <div className='right-kichu-ekta'>
-        <p>Follow Gamers</p>
+        <p style={{ color: "white" }}>Follow Gamers</p>
         {users.map((item) => (
           <Follow userdetails={item} key={item._id} />
         ))}

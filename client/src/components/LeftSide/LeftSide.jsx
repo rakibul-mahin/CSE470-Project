@@ -53,8 +53,7 @@ const LeftSide = () => {
     <div className='left-side'>
       <div className='container-one'>
         <div className='left-content'>
-          <p>Notifications</p>
-          <p style={{ color: "#aaa" }}>See all</p>
+          <p style={{ color: "white" }}>Notifications</p>
         </div>
         {notifications.map((item) => (
           <div className='left-user-detail'>
@@ -65,6 +64,7 @@ const LeftSide = () => {
                 fontSize: 13,
                 textAlign: "start",
                 width: "120px",
+                color: "white",
               }}
             >
               {item.username} {item.type}
@@ -84,8 +84,7 @@ const LeftSide = () => {
 
       <div className='container-one'>
         <div className='left-content'>
-          <p>Explore</p>
-          <p style={{ color: "#aaa" }}>See all</p>
+          <p style={{ color: "white" }}>Explore</p>
         </div>
         <div>
           {post.map((item) =>

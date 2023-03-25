@@ -100,4 +100,22 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  editProfile: async (req, res) => {
+    try {
+      let user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(400).json({ msg: "User not Found" });
+      }
+
+      user = await User.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      });
+
+      const updateUser = await user.save();
+
+      res.status(200).json({ updateUser });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./contentPost.css";
 import PhotoIcon from "@mui/icons-material/Photo";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import axios from "axios";
 
 const ContentPost = () => {
   const userDetails = useSelector((state) => state.user);
@@ -17,6 +18,20 @@ const ContentPost = () => {
   const accessToken = user.accessToken;
   const [file, setFile] = useState("");
   const [desc, setDesc] = useState("");
+  const [cUser, setCUser] = useState({});
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/get/user-details/${user.user._id}`
+        );
+        setCUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, []);
   const sharePostHandler = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
@@ -62,7 +77,11 @@ const ContentPost = () => {
     <div>
       <div className='content-upload-container'>
         <div className='message'>
-          <img src={`${userimage}`} alt='profileimg' className='profile-img' />
+          <img
+            src={`${cUser.userimage}`}
+            alt='profileimg'
+            className='profile-img'
+          />
           <input
             type='text'
             placeholder={`Dive in with your thoughts ${username}...`}

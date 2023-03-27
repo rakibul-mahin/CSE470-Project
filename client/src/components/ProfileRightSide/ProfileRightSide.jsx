@@ -13,6 +13,11 @@ const ProfileRightSide = () => {
   let users = userDetails.user;
   console.log(users);
 
+  const handleClick = async (uid) => {
+    navigate(`/profile/${uid}`);
+    window.location.reload(); // Reloads the current page
+  };
+
   useEffect(() => {
     const getFollowings = async () => {
       try {
@@ -57,6 +62,7 @@ const ProfileRightSide = () => {
                     color: "white",
                     cursor: "pointer",
                   }}
+                  onClick={() => handleClick(item._id)}
                 >
                   View Profile
                 </button>

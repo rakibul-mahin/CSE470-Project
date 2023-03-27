@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./profileLeftSide.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import FaceIcon from "@mui/icons-material/Face";
 
 const ProfileLeftSide = () => {
+  const navigate = useNavigate();
   let location = useLocation();
   let uid = location.pathname.split("/")[2];
   const [followers, setFollowers] = useState([]);
@@ -51,6 +53,18 @@ const ProfileLeftSide = () => {
     window.location.reload(); // Reloads the current page
   };
 
+  const handleEditProfile = (uid) => {
+    if (location.search || location.hash) {
+      navigate(location.pathname, { replace: true });
+    }
+    navigate(`/update/profile/${uid}`);
+  };
+
+  const changeProPicHandler = (e) => {
+    e.preventDefault();
+    navigate(`/update/profile/pic/${users.user._id}`);
+  };
+
   return (
     <div className='left-side'>
       <div className='container-one'>
@@ -65,6 +79,7 @@ const ProfileLeftSide = () => {
             alt='profimage'
             className='profile-page-image'
           />
+          <FaceIcon style={{ color: "white" }} onClick={changeProPicHandler} />
           <div>
             <p
               style={{
@@ -217,6 +232,7 @@ const ProfileLeftSide = () => {
             color: "white",
             cursor: "pointer",
           }}
+          onClick={() => handleEditProfile(user._id)}
         >
           Edit
         </button>
@@ -232,6 +248,7 @@ const ProfileLeftSide = () => {
                 marginLeft: "20px",
                 marginTop: "5px",
               }}
+              key={item._id}
             >
               <img
                 src={`${item.userimage}`}

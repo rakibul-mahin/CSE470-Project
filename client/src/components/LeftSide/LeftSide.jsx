@@ -56,7 +56,7 @@ const LeftSide = () => {
           <p style={{ color: "white" }}>Notifications</p>
         </div>
         {notifications.map((item) => (
-          <div className='left-user-detail'>
+          <div className='left-user-detail' key={item._id}>
             <img src={`${item.userimage}`} alt='profimg' className='left-img' />
             <p
               style={{
@@ -93,6 +93,7 @@ const LeftSide = () => {
                 src={`${image.image}`}
                 alt='postimg'
                 className='explore-img'
+                key={item._id}
               />
             ))
           )}

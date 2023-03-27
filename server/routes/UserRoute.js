@@ -7,5 +7,10 @@ router.post("/login", userController.login);
 router.get("/get/user-details/:id", userController.getUserDetail);
 router.get("/notifications/:id", userController.getUserNotification);
 router.put("/update/profile/:id", verifyToken, userController.editProfile);
+router.put(
+  "/update/profile/pic/:id",
+  verifyToken,
+  userController.updateProfilePic
+);
 
 module.exports = router;

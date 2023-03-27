@@ -4,6 +4,8 @@ import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
 import { useSelector } from "react-redux";
 import Profile from "./screens/Profile/Profile";
+import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
+import UpdateProfilePic from "./components/UpdateProfilePic/UpdateProfilePic";
 
 const App = () => {
   const userDetails = useSelector((state) => state.user);
@@ -25,9 +27,13 @@ const App = () => {
             element={user !== null ? <Navigate to={"/"} /> : <Register />}
           ></Route>
           <Route
-            // path='profile/:id'
-            path='profile/:id'
+            path='/profile/:id'
             element={user !== null ? <Profile /> : <Login />}
+          ></Route>
+          <Route path='/update/profile/:id' element={<UpdateProfile />}></Route>
+          <Route
+            path='/update/profile/pic/:id'
+            element={<UpdateProfilePic />}
           ></Route>
         </Routes>
       </BrowserRouter>

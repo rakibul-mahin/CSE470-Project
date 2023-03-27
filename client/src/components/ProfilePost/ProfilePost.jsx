@@ -171,7 +171,7 @@ const ProfilePost = ({ details }) => {
                   />
                 </div>
                 {comment.map((items) => (
-                  <div className='all-comments'>
+                  <div className='all-comments' key={items._id}>
                     <img
                       src={`${items.userimage}`}
                       alt='profileimg'

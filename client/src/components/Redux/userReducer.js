@@ -33,6 +33,28 @@ export const userReducer = createSlice({
       state.isFetching = false;
       state.error = true;
     },
+    updateStart: (state) => {
+      state.isFetching = true;
+    },
+    updateSuccess: (state, action) => {
+      state.isFetching = false;
+      state.user = action.payload;
+    },
+    updateFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
+    proPicStart: (state) => {
+      state.isFetching = true;
+    },
+    proPicSuccess: (state, action) => {
+      state.isFetching = false;
+      state.user = action.payload;
+    },
+    proPicFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
   },
 });
 
@@ -44,5 +66,11 @@ export const {
   registrationStart,
   registrationSuccess,
   registrationFailure,
+  updateSuccess,
+  updateStart,
+  updateFailure,
+  proPicFailure,
+  proPicStart,
+  proPicSuccess,
 } = userReducer.actions;
 export default userReducer.reducer;

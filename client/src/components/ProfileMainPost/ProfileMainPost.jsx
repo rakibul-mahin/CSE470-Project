@@ -50,7 +50,7 @@ const ProfileMainPost = () => {
       {users.user._id === id ? <ContentPost /> : ""}
 
       {post.map((item) => (
-        <ProfilePost details={item} />
+        <ProfilePost details={item} key={item._id} />
       ))}
     </div>
   );

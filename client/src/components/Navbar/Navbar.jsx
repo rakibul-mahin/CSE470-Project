@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./navbar.css";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { logout } from "../Redux/userReducer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Navbar = () => {
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
@@ -14,6 +15,20 @@ const Navbar = () => {
   const logoutHandler = (e) => {
     dispatch(logout());
   };
+  const [cUser, setCUser] = useState({});
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/get/user-details/${user.user._id}`
+        );
+        setCUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, []);
   return (
     <div className='main-navbar'>
       <div className='logo-container'>
@@ -36,7 +51,7 @@ const Navbar = () => {
         <Link to={`/profile/${user.user._id}`}>
           <div className='info-container'>
             <img
-              src={`${userimage}`}
+              src={`${cUser.userimage}`}
               alt='profileimage'
               className='profile-image'
             />

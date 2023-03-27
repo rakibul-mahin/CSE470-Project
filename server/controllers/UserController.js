@@ -111,9 +111,37 @@ module.exports = {
         $set: req.body,
       });
 
-      const updateUser = await user.save();
+      await user.save();
 
-      res.status(200).json({ updateUser });
+      const accessToken = jwt.sign(
+        {
+          id: user._id,
+          username: user.username,
+        },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+
+      res.status(200).json({ msg: "User Updated", user, accessToken });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  updateProfilePic: async (req, res) => {
+    try {
+      let user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(400).json({ msg: "User not Found" });
+      }
+      user.userimage = req.body.userimage;
+      await user.save();
+      const accessToken = jwt.sign(
+        {
+          id: user._id,
+          username: user.username,
+        },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.status(200).json({ msg: "profilepic Updated", user, accessToken });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

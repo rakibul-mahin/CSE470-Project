@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FaceIcon from "@mui/icons-material/Face";
+import LandscapeIcon from "@mui/icons-material/Landscape";
 
 const ProfileLeftSide = () => {
   const navigate = useNavigate();
@@ -65,6 +66,11 @@ const ProfileLeftSide = () => {
     navigate(`/update/profile/pic/${users.user._id}`);
   };
 
+  const changeCoverPicHandler = (e) => {
+    e.preventDefault();
+    navigate(`/update/cover/pic/${users.user._id}`);
+  };
+
   return (
     <div className='left-side'>
       <div className='container-one'>
@@ -73,13 +79,28 @@ const ProfileLeftSide = () => {
           alt='profcover'
           className='profile-page-cover'
         />
+        {users.user._id === uid ? (
+          <LandscapeIcon
+            style={{ color: "white" }}
+            onClick={changeCoverPicHandler}
+          />
+        ) : (
+          ""
+        )}
         <div style={{ display: "flex", alignItems: "center", marginTop: -40 }}>
           <img
             src={`${user.userimage}`}
             alt='profimage'
             className='profile-page-image'
           />
-          <FaceIcon style={{ color: "white" }} onClick={changeProPicHandler} />
+          {users.user._id === uid ? (
+            <FaceIcon
+              style={{ color: "white" }}
+              onClick={changeProPicHandler}
+            />
+          ) : (
+            ""
+          )}
           <div>
             <p
               style={{
@@ -220,22 +241,26 @@ const ProfileLeftSide = () => {
             {user.mobile}
           </p>
         </div>
-        <button
-          style={{
-            width: "90px",
-            marginLeft: "90px",
-            marginBottom: "10px",
-            padding: "3px",
-            borderRadius: "15px",
-            border: "None",
-            backgroundColor: "green",
-            color: "white",
-            cursor: "pointer",
-          }}
-          onClick={() => handleEditProfile(user._id)}
-        >
-          Edit
-        </button>
+        {users.user._id === uid ? (
+          <button
+            style={{
+              width: "90px",
+              marginLeft: "90px",
+              marginBottom: "10px",
+              padding: "3px",
+              borderRadius: "15px",
+              border: "None",
+              backgroundColor: "green",
+              color: "white",
+              cursor: "pointer",
+            }}
+            onClick={() => handleEditProfile(user._id)}
+          >
+            Edit
+          </button>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className='container-one'>

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Profile from "./screens/Profile/Profile";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import UpdateProfilePic from "./components/UpdateProfilePic/UpdateProfilePic";
+import UpdateCoverPic from "./components/UpdateCoverPic/UpdateCoverPic";
 
 const App = () => {
   const userDetails = useSelector((state) => state.user);
@@ -34,6 +35,10 @@ const App = () => {
           <Route
             path='/update/profile/pic/:id'
             element={<UpdateProfilePic />}
+          ></Route>
+          <Route
+            path='/update/cover/pic/:id'
+            element={<UpdateCoverPic />}
           ></Route>
         </Routes>
       </BrowserRouter>

@@ -12,5 +12,6 @@ router.put(
   verifyToken,
   userController.updateProfilePic
 );
+router.put("/update/cover/pic/:id", verifyToken, userController.updateCoverPic);
 
 module.exports = router;

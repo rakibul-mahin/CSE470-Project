@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./updateProfilePic.css";
+import "./updateCoverPic.css";
 import app from "../../firebase";
 import {
   getStorage,
@@ -9,7 +9,7 @@ import {
 } from "firebase/storage";
 import { useSelector } from "react-redux";
 
-const UpdateProfilePic = () => {
+const UpdateCoverPic = () => {
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
   const accessToken = user.accessToken;
@@ -46,17 +46,14 @@ const UpdateProfilePic = () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          fetch(
-            `http://localhost:5000/api/update/profile/pic/${user.user._id}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/JSON",
-                token: accessToken,
-              },
-              body: JSON.stringify({ userimage: downloadURL }),
-            }
-          );
+          fetch(`http://localhost:5000/api/update/cover/pic/${user.user._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/JSON",
+              token: accessToken,
+            },
+            body: JSON.stringify({ coverimage: downloadURL }),
+          });
           //   updateProPic(dispatch, downloadURL, user.user._id, accessToken);
         });
       }
@@ -79,4 +76,4 @@ const UpdateProfilePic = () => {
   );
 };
 
-export default UpdateProfilePic;
+export default UpdateCoverPic;

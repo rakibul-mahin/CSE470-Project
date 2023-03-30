@@ -146,4 +146,24 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  updateCoverPic: async (req, res) => {
+    try {
+      let user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(400).json({ msg: "User not Found" });
+      }
+      user.coverimage = req.body.coverimage;
+      await user.save();
+      const accessToken = jwt.sign(
+        {
+          id: user._id,
+          username: user.username,
+        },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.status(200).json({ msg: "coverpic Updated", user, accessToken });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };

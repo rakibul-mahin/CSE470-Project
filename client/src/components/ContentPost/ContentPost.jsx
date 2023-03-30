@@ -60,16 +60,34 @@ const ContentPost = () => {
       (error) => {
         // Handle unsuccessful uploads
       },
-      () => {
+      async () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          fetch(`http://localhost:5000/api/create/post`, {
-            method: "POST",
-            headers: { "Content-Type": "application/JSON", token: accessToken },
-            body: JSON.stringify({ desc: desc, image: downloadURL }),
-          });
-        });
+        try {
+          // getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          //   fetch(`http://localhost:5000/api/create/post`, {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type": "application/JSON",
+          //       token: accessToken,
+          //     },
+          //     body: JSON.stringify({ desc: desc, image: downloadURL }),
+          //   });
+          // });
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          const res = await axios.post(
+            `http://localhost:5000/api/create/post`,
+            { desc: desc, image: downloadURL },
+            {
+              headers: {
+                token: accessToken,
+              },
+            }
+          );
+          window.location.reload();
+        } catch (err) {
+          console.log(err);
+        }
       }
     );
   };

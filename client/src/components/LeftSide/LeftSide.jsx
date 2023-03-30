@@ -53,7 +53,7 @@ const LeftSide = () => {
     <div className='left-side'>
       <div className='container-one'>
         <div className='left-content'>
-          <p style={{ color: "white" }}>Notifications</p>
+          <p style={{ color: "white" }}>Others Activity</p>
         </div>
         {notifications.map((item) => (
           <div className='left-user-detail' key={item._id}>

@@ -22,6 +22,7 @@ const MainPost = () => {
             },
           }
         );
+
         setPost(res.data);
       } catch (err) {
         console.log(err);

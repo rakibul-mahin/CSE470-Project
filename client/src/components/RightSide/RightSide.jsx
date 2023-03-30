@@ -9,6 +9,7 @@ const RightSide = () => {
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
   const accesstoken = user.accessToken;
+
   useEffect(() => {
     const getUsers = async () => {
       try {
@@ -29,9 +30,12 @@ const RightSide = () => {
     <div className='right-side'>
       <div className='right-kichu-ekta'>
         <p style={{ color: "white" }}>Follow Gamers</p>
-        {users.map((item) => (
-          <Follow userdetails={item} key={item._id} />
-        ))}
+        {users.map((item) => {
+          if (item._id === userDetails.user.user._id) {
+            return null;
+          }
+          return <Follow userdetails={item} key={item._id} />;
+        })}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ const Follow = ({ userdetails }) => {
   let loguser = userDetails.user;
   const accesstoken = loguser.accessToken;
   const [follow, setFollow] = useState(false);
+  let done = false;
   const handleFollow = async (e) => {
     try {
       await axios.put(
@@ -21,6 +22,10 @@ const Follow = ({ userdetails }) => {
         }
       );
       setFollow(!follow);
+      done = true;
+      if (done === true) {
+        window.location.reload();
+      }
     } catch (err) {
       console.log(err);
     }

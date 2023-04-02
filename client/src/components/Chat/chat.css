@@ -1,0 +1,39 @@
+.main-chat-container {
+  flex: 2.8;
+}
+.user-profile-chat {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.msg-container {
+  height: 60vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.msg-input {
+  width: 50pc;
+  margin-left: 80px;
+  margin-top: 10px;
+  padding: 15px;
+  color: white;
+  background-color: black;
+  border: none;
+}
+.msg-sender-container {
+  display: flex;
+  width: 40pc;
+  background-color: aliceblue;
+  margin-top: 10px;
+  padding: 5px;
+  margin-left: 10px;
+}
+.msg-send-btn {
+  width: 130px;
+  height: 30px;
+  margin-top: 20px;
+  border: none;
+  background-color: greenyellow;
+  cursor: pointer;
+}

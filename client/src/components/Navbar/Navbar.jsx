@@ -94,7 +94,9 @@ const Navbar = () => {
           className='icons p-icon'
           onClick={logoutHandler}
         />
-        <ChatIcon className='icons' />
+        <Link to={`/chat`}>
+          <ChatIcon className='icons' />
+        </Link>
         <Link to={`/profile/${user.user._id}`}>
           <div className='info-container'>
             <img

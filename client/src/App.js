@@ -7,6 +7,7 @@ import Profile from "./screens/Profile/Profile";
 import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import UpdateProfilePic from "./components/UpdateProfilePic/UpdateProfilePic";
 import UpdateCoverPic from "./components/UpdateCoverPic/UpdateCoverPic";
+import ChatPage from "./screens/ChatPage/ChatPage";
 
 const App = () => {
   const userDetails = useSelector((state) => state.user);
@@ -40,6 +41,7 @@ const App = () => {
             path='/update/cover/pic/:id'
             element={<UpdateCoverPic />}
           ></Route>
+          <Route path='/chat' element={<ChatPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

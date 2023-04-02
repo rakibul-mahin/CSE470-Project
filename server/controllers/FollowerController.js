@@ -37,10 +37,13 @@ module.exports = {
   },
   followerPost: async (req, res) => {
     try {
+      const page = req.query.page || 1;
+      const limit = req.query.limit || 3;
+      const startIndex = (page - 1) * limit;
       const user = await User.findById(req.params.id);
       const followerPost = await Promise.all(
         user.following.map((item) => {
-          return Post.find({ user: item });
+          return Post.find({ user: item }).skip(startIndex).limit(limit);
         })
       );
       res.status(200).json(followerPost);

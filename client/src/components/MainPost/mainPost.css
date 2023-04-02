@@ -1,3 +1,13 @@
 .main-post {
   flex: 4;
 }
+.load-more-btn {
+  width: 100px;
+  height: 60px;
+  margin-left: 380px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(166, 247, 166);
+  font-weight: bold;
+  cursor: pointer;
+}

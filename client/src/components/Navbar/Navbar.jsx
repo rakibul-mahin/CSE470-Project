@@ -10,12 +10,15 @@ import axios from "axios";
 const Navbar = () => {
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
-  const { username, userimage } = user.user;
+  const { username } = user.user;
   const dispatch = useDispatch();
   const logoutHandler = (e) => {
     dispatch(logout());
   };
   const [cUser, setCUser] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -29,6 +32,23 @@ const Navbar = () => {
     };
     getUser();
   }, []);
+
+  const handleSearch = async () => {
+    setSearching(true);
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/search/users?q=${searchQuery}`,
+        {
+          headers: { token: user.accessToken },
+        }
+      );
+      setSearchResults(res.data);
+      setSearching(false);
+    } catch (err) {
+      console.log(err);
+      setSearching(false);
+    }
+  };
   return (
     <div className='main-navbar'>
       <div className='logo-container'>
@@ -39,8 +59,35 @@ const Navbar = () => {
       <div>
         <div className='search-input-container'>
           <SearchIcon className='search-icon' />
-          <input type='text' placeholder='Search...' className='search-input' />
+          <input
+            type='text'
+            placeholder='Search...'
+            className='search-input'
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
         </div>
+        {searching && <p>Searching...</p>}
+        {searchResults.length > 0 && (
+          <div className='search-results-container'>
+            {searchResults.map((result) => (
+              <Link to={`/profile/${result._id}`}>
+                <div key={result._id} className='search-result'>
+                  <img
+                    src={`${result.userimage}`}
+                    alt='profileimage'
+                    className='profile-image'
+                  />
+                  <p className='profile-name'>{result.username}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
       <div className='icon-container'>
         <PowerSettingsNewIcon

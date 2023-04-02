@@ -166,4 +166,20 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  searchUser: async (req, res) => {
+    try {
+      const searchQuery = req.query.q;
+      const users = await User.find({
+        username: { $regex: searchQuery, $options: "i" },
+      });
+
+      if (!users) {
+        return res.status(400).json({ msg: "User not Found" });
+      }
+
+      res.status(200).json(users);
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };

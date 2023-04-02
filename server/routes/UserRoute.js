@@ -13,5 +13,6 @@ router.put(
   userController.updateProfilePic
 );
 router.put("/update/cover/pic/:id", verifyToken, userController.updateCoverPic);
+router.get("/search/users", verifyToken, userController.searchUser);
 
 module.exports = router;

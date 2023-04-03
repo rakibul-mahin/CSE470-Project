@@ -72,7 +72,6 @@ const Navbar = () => {
           </span>
         </Link>
       </div>
-      {/* done */}
       <div>
         <div className='relative w-full max-w-xs'>
           {clear === true ? (
@@ -103,11 +102,6 @@ const Navbar = () => {
             type='text'
             placeholder='Search...'
             onChange={(e) => setSearchQuery(e.target.value)}
-            // onKeyPress={(e) => {
-            //   if (e.key === "Enter") {
-            //     handleSearch();
-            //   }
-            // }}
             className='input input-bordered w-full'
           />
         </div>
@@ -166,18 +160,6 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      {/* <div>
-        <PowerSettingsNewIcon onClick={logoutHandler} />
-        <Link to={`/chat`}>
-          <ChatIcon />
-        </Link>
-        <Link to={`/profile/${user.user._id}`}>
-          <div>
-            <img src={`${cUser.userimage}`} alt='profileimage' />
-            <p>{username}</p>
-          </div>
-        </Link>
-      </div> */}
     </div>
   );
 };

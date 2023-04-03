@@ -4,10 +4,14 @@ import ChatIcon from "@mui/icons-material/Chat";
 import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import GamepadIcon from "@mui/icons-material/Gamepad";
+import PersonIcon from "@mui/icons-material/Person";
+import ClearIcon from "@mui/icons-material/Clear";
 import { logout } from "../Redux/userReducer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 const Navbar = () => {
+  const [clear, setClear] = useState(true);
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
   const { username } = user.user;
@@ -42,6 +46,7 @@ const Navbar = () => {
           headers: { token: user.accessToken },
         }
       );
+      setClear(false);
       setSearchResults(res.data);
       setSearching(false);
     } catch (err) {
@@ -49,65 +54,130 @@ const Navbar = () => {
       setSearching(false);
     }
   };
+
+  const handleSearchClear = () => {
+    setClear(true);
+    setSearchResults([]);
+  };
   return (
-    <div className='main-navbar'>
-      <div className='logo-container'>
+    <div className='navbar bg-base-100'>
+      <div className='flex-1'>
         <Link to={`/`}>
-          <h3 style={{ textDecoration: "None" }}>GameVerse</h3>
+          <span className='flex flex-row gap-4 items-center'>
+            <GamepadIcon
+              className='text-logo-img-yellow ml-7'
+              style={{ transform: "scale(2)" }}
+            />
+            <h3 className='text-logo-text-green text-4xl'>GameVerse</h3>
+          </span>
         </Link>
       </div>
+      {/* done */}
       <div>
-        <div className='search-input-container'>
-          <SearchIcon className='search-icon' />
+        <div className='relative w-full max-w-xs'>
+          {clear === true ? (
+            <SearchIcon
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
+              onClick={handleSearch}
+            />
+          ) : (
+            <ClearIcon
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
+              onClick={handleSearchClear}
+            />
+          )}
+
           <input
             type='text'
             placeholder='Search...'
-            className='search-input'
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
+            // onKeyPress={(e) => {
+            //   if (e.key === "Enter") {
+            //     handleSearch();
+            //   }
+            // }}
+            className='input input-bordered w-full'
           />
         </div>
         {searching && <p>Searching...</p>}
         {searchResults.length > 0 && (
-          <div className='search-results-container'>
+          <div className='dropdown dropdown-end p-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 absolute top-20'>
             {searchResults.map((result) => (
               <Link to={`/profile/${result._id}`}>
-                <div key={result._id} className='search-result'>
+                <div
+                  key={result._id}
+                  className='flex flex-row btn-ghost btn-circle avatar items-center'
+                >
                   <img
                     src={`${result.userimage}`}
                     alt='profileimage'
-                    className='profile-image'
+                    className='w-10 rounded-full'
                   />
-                  <p className='profile-name'>{result.username}</p>
+                  <p className='text-logo-text-green ml-3'>{result.username}</p>
                 </div>
               </Link>
             ))}
           </div>
         )}
       </div>
-      <div className='icon-container'>
-        <PowerSettingsNewIcon
-          className='icons p-icon'
-          onClick={logoutHandler}
-        />
+      <div className='dropdown dropdown-end'>
+        <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
+          <div className='w-10 rounded-full'>
+            <img src={`${cUser.userimage}`} alt='loggedinprofileimage' />
+          </div>
+        </label>
+        <ul
+          tabIndex={0}
+          className='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52'
+        >
+          <li>
+            <Link to={`/profile/${user.user._id}`}>
+              <span className='flex flex-row gap-3 justify-center items-center'>
+                <PersonIcon /> Profile
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link to={`/chat`}>
+              <span className='flex flex-row gap-3 justify-center items-center'>
+                <ChatIcon /> Chat
+              </span>
+            </Link>
+          </li>
+          <li>
+            <span
+              className='flex flex-row gap-3 justify-center items-center'
+              onClick={logoutHandler}
+            >
+              <PowerSettingsNewIcon /> Logout
+            </span>
+          </li>
+        </ul>
+      </div>
+      {/* <div>
+        <PowerSettingsNewIcon onClick={logoutHandler} />
         <Link to={`/chat`}>
-          <ChatIcon className='icons' />
+          <ChatIcon />
         </Link>
         <Link to={`/profile/${user.user._id}`}>
-          <div className='info-container'>
-            <img
-              src={`${cUser.userimage}`}
-              alt='profileimage'
-              className='profile-image'
-            />
-            <p className='profile-name'>{username}</p>
+          <div>
+            <img src={`${cUser.userimage}`} alt='profileimage' />
+            <p>{username}</p>
           </div>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

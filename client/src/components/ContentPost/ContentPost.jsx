@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./contentPost.css";
 import PhotoIcon from "@mui/icons-material/Photo";
+import ClearIcon from "@mui/icons-material/Clear";
 import { useSelector } from "react-redux";
 import app from "../../firebase";
 import {
@@ -19,6 +20,7 @@ const ContentPost = () => {
   const [file, setFile] = useState("");
   const [desc, setDesc] = useState("");
   const [cUser, setCUser] = useState({});
+  const [preview, setPreview] = useState("");
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -75,7 +77,7 @@ const ContentPost = () => {
           //   });
           // });
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          const res = await axios.post(
+          await axios.post(
             `http://localhost:5000/api/create/post`,
             { desc: desc, image: downloadURL },
             {
@@ -91,37 +93,67 @@ const ContentPost = () => {
       }
     );
   };
+  const handleFileInputChange = (e) => {
+    setFile(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+  const handleClearImage = () => {
+    setFile("");
+    setPreview("");
+  };
   return (
     <div>
-      <div className='content-upload-container'>
-        <div className='message'>
+      <div className='mt-4 flex flex-col gap-1 bg-slate-900 card p-3'>
+        <div className='mt-4 flex flex-row gap-4 justify-center items-center'>
           <img
             src={`${cUser.userimage}`}
             alt='profileimg'
-            className='profile-img'
+            className='w-14 rounded-full'
           />
           <input
             type='text'
-            placeholder={`Dive in with your thoughts ${username}...`}
-            className='content-text'
+            placeholder={`Dive into GameVerse ${username}!!!`}
             name='desc'
             onChange={(e) => setDesc(e.target.value)}
+            className='input input-bordered input-success w-full max-w-xs'
           />
         </div>
-        <div className='icons-p-container'>
-          <div className='bottom'>
+        <div>
+          <div className='mt-9 flex flex-row justify-around items-center gap-5'>
             <label htmlFor='file'>
-              <PhotoIcon className='icons-p' />
+              <PhotoIcon className='text-slate-50 hover:text-slate-400' />
               <input
                 type='file'
                 name='file'
                 id='file'
                 style={{ display: "none" }}
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={handleFileInputChange}
               />
+              {preview && (
+                <div className='relative'>
+                  <img src={preview} alt='previewimg' className='w-20' />
+                  <ClearIcon
+                    style={{
+                      cursor: "pointer",
+                      position: "absolute",
+                      right: "0px",
+                      top: "0px",
+                    }}
+                    onClick={handleClearImage}
+                    className='text-slate-50 hover:text-slate-400'
+                  />
+                </div>
+              )}
             </label>
-            <button className='share-btn' onClick={sharePostHandler}>
-              Share
+            <button
+              onClick={sharePostHandler}
+              className='rounded-full p-2 w-24 my-4 bg-logo-text-green text-zinc-950 hover:bg-lime-300'
+            >
+              Post
             </button>
           </div>
         </div>

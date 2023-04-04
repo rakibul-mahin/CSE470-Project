@@ -4,14 +4,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import LeftSide from "../../components/LeftSide/LeftSide";
 import MainPost from "../../components/MainPost/MainPost";
 import RightSide from "../../components/RightSide/RightSide";
-// import { useSelector } from "react-redux";
 const Home = () => {
-  // const userDetails = useSelector((state) => state.user);
-  // let user = userDetails.user;
   return (
-    <div className='home'>
+    <div>
       <Navbar />
-      <div className='component-container'>
+      <div className='flex flex-row gap-5 justify-center bg-gray-800'>
         <LeftSide />
         <MainPost />
         <RightSide />

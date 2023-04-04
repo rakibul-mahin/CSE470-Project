@@ -27,9 +27,9 @@ const RightSide = () => {
   }, []);
   console.log(users);
   return (
-    <div className='right-side'>
-      <div className='right-kichu-ekta'>
-        <p style={{ color: "white" }}>Follow Gamers</p>
+    <div>
+      <div className='mt-4 flex flex-col gap-2 card bg-slate-900 justify-center items-center p-3 overflow-y-scroll w-auto'>
+        <p className='text-logo-text-green'>Follow Gamers</p>
         {users.map((item) => {
           if (item._id === userDetails.user.user._id) {
             return null;

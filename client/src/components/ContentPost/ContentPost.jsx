@@ -109,11 +109,11 @@ const ContentPost = () => {
     <div>
       <div className='mt-4 flex flex-col gap-1 bg-slate-900 card p-3'>
         <div className='mt-4 flex flex-row gap-4 justify-center items-center'>
-          <img
-            src={`${cUser.userimage}`}
-            alt='profileimg'
-            className='w-14 rounded-full'
-          />
+          <div className='avatar'>
+            <div className='w-14 rounded-full'>
+              <img src={`${cUser.userimage}`} alt='profileimg' />
+            </div>
+          </div>
           <input
             type='text'
             placeholder={`Dive into GameVerse ${username}!!!`}

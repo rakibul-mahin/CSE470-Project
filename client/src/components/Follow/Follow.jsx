@@ -31,19 +31,23 @@ const Follow = ({ userdetails }) => {
     }
   };
   return (
-    <div className='one-user-container' key={userdetails._id}>
-      <div className='one-user'>
-        <img
-          src={`${userdetails.userimage}`}
-          alt='sm-user-profile'
-          className='sm-follow-img'
-        />
-        <p style={{ marginLeft: "10px" }}>{userdetails.username}</p>
+    <div className='flex flex-row gap-2 justify-center items-center'>
+      <div className='flex flex-row gap-2 justify-center items-center'>
+        <div className='avatar'>
+          <div className='w-14 rounded-full'>
+            <img
+              src={`${userdetails.userimage}`}
+              alt='sm-user-profile'
+              className=''
+            />
+          </div>
+        </div>
+        <p>{userdetails.username}</p>
       </div>
       <div>
         <button
-          className={follow ? "unfollow-btn" : "follow-btn"}
           onClick={(e) => handleFollow(userdetails._id)}
+          className='rounded-full p-2 w-24 my-4 bg-logo-text-green text-zinc-950 hover:bg-lime-300'
         >
           {follow ? "Following" : "Follow"}
         </button>

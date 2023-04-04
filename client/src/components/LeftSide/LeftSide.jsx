@@ -62,7 +62,7 @@ const LeftSide = () => {
     }
   };
   return (
-    <div className='mt-4 flex flex-col gap-7'>
+    <div className='mt-4 flex flex-col gap-3'>
       <div className='ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3 w-2/3 overflow-y-scroll'>
         <div>
           <p className='text-logo-text-green'>Others Activity</p>

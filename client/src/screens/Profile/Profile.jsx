@@ -7,9 +7,9 @@ import ProfileRightSide from "../../components/ProfileRightSide/ProfileRightSide
 
 const Profile = () => {
   return (
-    <div className='profile-container'>
+    <div>
       <Navbar />
-      <div className='sub-profile-container'>
+      <div className='flex flex-row gap-3'>
         <ProfileLeftSide />
         <ProfileMainPost />
         <ProfileRightSide />

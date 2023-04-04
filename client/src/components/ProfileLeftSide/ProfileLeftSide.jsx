@@ -73,7 +73,7 @@ const ProfileLeftSide = () => {
 
   return (
     <div className='left-side'>
-      <div className='container-one'>
+      {/* <div className='container-one'>
         <img
           src={`${user.coverimage}`}
           alt='profcover'
@@ -261,20 +261,51 @@ const ProfileLeftSide = () => {
         ) : (
           ""
         )}
+      </div> */}
+      <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3'>
+        <div>
+          <img
+            src={`${user.coverimage}`}
+            alt='profcover'
+            className='relative'
+          />
+          <div
+            className='avatar absolute'
+            style={{ top: "110px", left: "19px" }}
+          >
+            <div className='w-20 rounded-full'>
+              <img src={`${user.userimage}`} alt='profimage' />
+            </div>
+          </div>
+        </div>
+        <div>
+          {users.user._id === uid ? (
+            <div className='ml-9 flex flex-row gap-5 justify-center items-center'>
+              <LandscapeIcon
+                style={{ color: "white" }}
+                onClick={changeCoverPicHandler}
+              />
+              <FaceIcon
+                style={{ color: "white" }}
+                onClick={changeProPicHandler}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div>
+          <h3 className='text-logo-text-green text-2xl'>
+            {user.firstname} {user.lastname}
+          </h3>
+        </div>
       </div>
 
-      <div className='container-one'>
-        <h3 style={{ color: "white" }}>Followers</h3>
-        <div>
+      <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3'>
+        <h3 className='text-logo-text-green'>Followers</h3>
+        <div className='flex flex-col gap-2 p-3 justify-center items-center'>
           {followers.map((item) => (
-            <div
-              style={{
-                display: "flex",
-                marginLeft: "20px",
-                marginTop: "5px",
-              }}
-              key={item._id}
-            >
+            <div className='flex flex-row gap-2 justify-center items-center'>
               <img
                 src={`${item.userimage}`}
                 alt='followimg'
@@ -285,19 +316,8 @@ const ProfileLeftSide = () => {
               </p>
               <Link to={`/profile/${item._id}`}>
                 <button
-                  style={{
-                    width: "100px",
-                    marginLeft: "50px",
-                    marginRight: "8px",
-                    marginBottom: "10px",
-                    padding: "3px",
-                    borderRadius: "15px",
-                    border: "None",
-                    backgroundColor: "green",
-                    color: "white",
-                    cursor: "pointer",
-                  }}
                   onClick={() => handleClick(item._id)}
+                  className='rounded-full p-2 w-28 my-4 bg-logo-text-green text-zinc-950'
                 >
                   View Profile
                 </button>

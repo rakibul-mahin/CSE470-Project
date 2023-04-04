@@ -32,37 +32,22 @@ const ProfileRightSide = () => {
     getFollowings();
   }, []);
   return (
-    <div className='right-side'>
-      <div className='container-one'>
-        <h3 style={{ color: "white" }}>Following</h3>
-        <div>
+    <div>
+      <div className='flex flex-col gap-2 card bg-slate-900 justify-center items-center p-3 mr-2'>
+        <h3 className='text-logo-text-green'>Following</h3>
+        <div className='flex flex-col gap-2'>
           {followings.map((item) => (
-            <div
-              style={{ display: "flex", marginLeft: "20px", marginTop: "5px" }}
-            >
-              <img
-                src={`${item.userimage}`}
-                alt='followimg'
-                className='follower-img'
-              />
-              <p style={{ color: "white", marginLeft: "10px" }}>
-                {item.username}
-              </p>
+            <div className='flex flex-row gap-2 justify-center items-center'>
+              <div className='avatar'>
+                <div className='w-14 rounded-full'>
+                  <img src={`${item.userimage}`} alt='followimg' />
+                </div>
+              </div>
+              <p>{item.username}</p>
               <Link to={`/profile/${item._id}`}>
                 <button
-                  style={{
-                    width: "100px",
-                    marginLeft: "50px",
-                    marginRight: "8px",
-                    marginBottom: "10px",
-                    padding: "3px",
-                    borderRadius: "15px",
-                    border: "None",
-                    backgroundColor: "green",
-                    color: "white",
-                    cursor: "pointer",
-                  }}
                   onClick={() => handleClick(item._id)}
+                  className='rounded-full p-2 w-28 my-4 bg-logo-text-green text-zinc-950'
                 >
                   View Profile
                 </button>

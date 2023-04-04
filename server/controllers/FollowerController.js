@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 module.exports = {
   follow: async (req, res) => {
@@ -11,8 +12,10 @@ module.exports = {
         if (!user.followers.includes(req.body.user)) {
           await user.updateOne({ $push: { followers: req.body.user } });
           await otheruser.updateOne({ $push: { following: req.params.id } });
+          const notificationId = new mongoose.Types.ObjectId().toHexString();
           // const creator = await User.findById(post.user);
           const follow_notification = {
+            notificationID: notificationId,
             user: otheruser._id,
             username: otheruser.username,
             userimage: otheruser.userimage,
@@ -44,6 +47,19 @@ module.exports = {
       const followerPost = await Promise.all(
         user.following.map((item) => {
           return Post.find({ user: item }).skip(startIndex).limit(limit);
+        })
+      );
+      res.status(200).json(followerPost);
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  allFollowerPost: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const followerPost = await Promise.all(
+        user.following.map((item) => {
+          return Post.find({ user: item });
         })
       );
       res.status(200).json(followerPost);

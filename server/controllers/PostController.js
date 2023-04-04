@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 module.exports = {
   createPost: async (req, res) => {
@@ -101,7 +102,9 @@ module.exports = {
       };
       const post = await Post.findById(postid);
       const creator = await User.findById(post.user);
+      const notificationId = new mongoose.Types.ObjectId().toHexString();
       const comment_writer = {
+        notificationID: notificationId,
         user: req.user.id,
         username: req.user.username,
         userimage: userimage,

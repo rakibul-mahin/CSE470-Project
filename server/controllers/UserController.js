@@ -100,6 +100,30 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  deleteUserNotification: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(400).json({ msg: "User not Found" });
+      }
+
+      const notificationIndex = user.notifications.findIndex(
+        (notification) => notification.notificationID == req.params.nid
+      );
+
+      if (notificationIndex < 0) {
+        return res.status(400).json({ msg: "Notification not found" });
+      }
+
+      user.notifications.splice(notificationIndex, 1);
+
+      await user.save();
+
+      res.status(200).json({ msg: "Notification deleted" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
   editProfile: async (req, res) => {
     try {
       let user = await User.findById(req.params.id);

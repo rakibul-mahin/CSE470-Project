@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className='flex flex-row gap-5 justify-center bg-gray-800'>
+      <div className='flex flex-row gap-2 bg-gray-800'>
         <LeftSide />
         <MainPost />
         <RightSide />

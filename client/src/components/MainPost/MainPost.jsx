@@ -17,7 +17,7 @@ const MainPost = () => {
     const getPost = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/followers-post/${id}/?page=${currentPage}`,
+          `http://localhost:5000/api/followers-post/${id}?page=${currentPage}`,
           {
             headers: {
               token: accesstoken,
@@ -37,6 +37,8 @@ const MainPost = () => {
     getPost();
   }, [currentPage, accesstoken]);
 
+  console.log(post, 1000);
+
   const handleLoadMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -45,9 +47,7 @@ const MainPost = () => {
     <div className='main-post'>
       <ContentPost />
       {post.map((item) =>
-        item.map((postDetails) => (
-          <Post post={postDetails} key={postDetails._id} />
-        ))
+        item.map((postDetails) => <Post post={postDetails} />)
       )}
       {hasMorePosts && (
         <button className='load-more-btn' onClick={handleLoadMore}>

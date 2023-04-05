@@ -36,40 +36,24 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className='main-contact-container'>
+    <div className='flex flex-row gap-3 justify-center p-3'>
       <div>
         <div className='user-details-contact'>
           {user.map((item) => (
-            <div>
+            <div className='flex flex-col gap-3 justify-center items-center'>
               {item._id !== id ? (
                 <div
-                  className='user-container'
+                  className='mt-4 flex flex-row gap-3 justify-center items-center mr-5 card bg-slate-900 w-auto shadow-xl p-3'
                   onClick={(e) => handleUser(item)}
                 >
-                  <img
-                    src={`${item.userimage}`}
-                    alt='profileimg'
-                    className='contact-img'
-                  />
+                  <div className='avatar'>
+                    <div className='w-24 rounded-full'>
+                      <img src={`${item.userimage}`} alt='profileimg' />
+                    </div>
+                  </div>
                   <div style={{ marginLeft: "10px" }}>
-                    <p
-                      style={{
-                        color: "black",
-                        textAlign: "start",
-                        marginTop: "1px",
-                      }}
-                    >
-                      {item.username}
-                    </p>
-                    <p
-                      style={{
-                        color: "black",
-                        textAlign: "start",
-                        marginTop: "-10px",
-                      }}
-                    >
-                      text message
-                    </p>
+                    <p className='text-logo-text-green'>{item.username}</p>
+                    <p className='text-logo-text-green'>text message</p>
                   </div>
                 </div>
               ) : (
@@ -79,7 +63,11 @@ const Contact = () => {
           ))}
         </div>
       </div>
-      {currChat === "" ? "Click" : <Chat currUser={currChat} />}
+      {currChat === "" ? (
+        <p className='text-logo-text-green'>Click a User to start chat</p>
+      ) : (
+        <Chat currUser={currChat} />
+      )}
     </div>
   );
 };

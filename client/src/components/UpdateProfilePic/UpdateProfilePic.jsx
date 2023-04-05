@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./updateProfilePic.css";
+import ClearIcon from "@mui/icons-material/Clear";
 import app from "../../firebase";
 import {
   getStorage,
@@ -10,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 
 const UpdateProfilePic = () => {
+  const [preview, setPreview] = useState("");
   const userDetails = useSelector((state) => state.user);
   let user = userDetails.user;
   const accessToken = user.accessToken;
@@ -62,17 +64,48 @@ const UpdateProfilePic = () => {
       }
     );
   };
+  const handleFileInputChange = (e) => {
+    setFile(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+  const handleClearImage = () => {
+    setFile("");
+    setPreview("");
+  };
   return (
-    <div>
+    <div className='mt-9 flex flex-col gap-3 justify-center items-center'>
       <label htmlFor='file'>
         <input
           type='file'
           name='file'
           id='file'
-          onChange={(e) => setFile(e.target.files[0])}
+          className='file-input file-input-bordered file-input-success w-full max-w-xs'
+          onChange={handleFileInputChange}
         />
       </label>
-      <button className='share-btn' onClick={updatePicHandler}>
+      {preview && (
+        <div className='relative'>
+          <img src={preview} alt='previewimg' className='w-20' />
+          <ClearIcon
+            style={{
+              cursor: "pointer",
+              position: "absolute",
+              right: "0px",
+              top: "0px",
+            }}
+            onClick={handleClearImage}
+            className='text-slate-50 hover:text-slate-400'
+          />
+        </div>
+      )}
+      <button
+        className='rounded-full p-2 w-24 my-4 bg-logo-text-green text-zinc-950 hover:bg-lime-300'
+        onClick={updatePicHandler}
+      >
         Change
       </button>
     </div>

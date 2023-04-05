@@ -107,7 +107,7 @@ const Navbar = () => {
         </div>
         {searching && <p>Searching...</p>}
         {searchResults.length > 0 && (
-          <div className='dropdown dropdown-end p-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 absolute top-20'>
+          <div className='dropdown dropdown-end p-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 absolute top-20 z-10'>
             {searchResults.map((result) => (
               <Link to={`/profile/${result._id}`}>
                 <div

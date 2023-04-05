@@ -34,9 +34,22 @@ const Chat = ({ currUser }) => {
     getMessage();
   }, [currUser._id]);
 
-  // useEffect(() => {
-  //   scrollRef.current.scrollIntoView({ behavior: "smooth" });
-  // }, [message]);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/get/user-details/${users.user._id}`
+        );
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, []);
+
+  console.log(user, 5);
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
@@ -86,6 +99,7 @@ const Chat = ({ currUser }) => {
     arrivalMessage && setMessage((pre) => [...pre, arrivalMessage]);
   }, [arrivalMessage]);
 
+  console.log(currUser);
   return (
     <div className='main-chat-container'>
       <div>
@@ -94,10 +108,11 @@ const Chat = ({ currUser }) => {
             display: "flex",
             marginLeft: "10px",
             marginTop: "20px",
-            backgroundColor: "grey",
+            backgroundColor: "black",
             width: "70pc",
             padding: "10px",
             borderRadius: "10px",
+            alignItems: "center",
           }}
         >
           <img
@@ -113,56 +128,50 @@ const Chat = ({ currUser }) => {
           {message.map((item) => (
             <div ref={scrollRef}>
               {item.myself === false ? (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginLeft: "10px",
-                    backgroundColor: "green",
-                    marginTop: "10px",
-                    padding: "5px",
-                    borderRadius: "10px",
-                    width: "450px",
-                  }}
-                >
-                  <img
-                    src={`${currUser.userimage}`}
-                    alt='userchatimg'
-                    className='user-profile-chat'
-                  />
-                  <p style={{ textAlign: "start", marginLeft: "10px" }}>
+                <div className='chat chat-start'>
+                  <div className='chat-image avatar'>
+                    <div className='w-10 rounded-full'>
+                      <img src={`${currUser.userimage}`} alt='otheruser' />
+                    </div>
+                  </div>
+                  <div className='chat-header text-logo-text-green'>
+                    {currUser.username}
+                  </div>
+                  <div className='chat-bubble text-logo-text-green'>
                     {item.message}
-                  </p>
+                  </div>
+                  <div className='chat-footer opacity-50'>Delivered</div>
                 </div>
               ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginLeft: "650px",
-                    backgroundColor: "green",
-                    marginTop: "10px",
-                    padding: "5px",
-                    borderRadius: "10px",
-                    width: "450px",
-                  }}
-                >
-                  <p style={{ textAlign: "start", marginLeft: "20px" }}>
+                <div className='chat chat-end'>
+                  <div className='chat-image avatar'>
+                    <div className='w-10 rounded-full'>
+                      <img src={`${user.userimage}`} alt='profile-img' />
+                    </div>
+                  </div>
+                  <div className='chat-header text-logo-text-green'>
+                    {user.username}
+                    {/* <time className='text-xs opacity-50'>12:46</time> */}
+                  </div>
+                  <div className='chat-bubble text-logo-text-green'>
                     {item.message}
-                  </p>
+                  </div>
                 </div>
               )}
             </div>
           ))}
         </div>
-        <div className='msg-sender-container'>
+        <div className='flex flex-row justify-center items-center gap-3'>
           <input
             type='text'
-            className='msg-input'
+            className='input input-bordered input-info w-80'
             placeholder='Write your message'
             onChange={(e) => setSendMessage(e.target.value)}
           />
-          <button className='msg-send-btn' onClick={sendMessageHandler}>
+          <button
+            className='rounded-full p-2 w-24 my-4 bg-logo-text-green text-zinc-950'
+            onClick={sendMessageHandler}
+          >
             Send
           </button>
         </div>

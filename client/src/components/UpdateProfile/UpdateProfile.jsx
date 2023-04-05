@@ -3,13 +3,13 @@ import "./updateProfile.css";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../Redux/apiCall";
 import { useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
   let location = useLocation();
-  //   let u_id = location.pathname.split("/")[3];
+
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
   let users = userDetails.user;
@@ -38,64 +38,67 @@ const UpdateProfile = () => {
     navigate(`/profile/${uid}`);
   };
   return (
-    <div className='register-form-container'>
-      <div className='sub-main-container'>
+    <div className='flex flex-row gap-5 justify-center items-center'>
+      <div>
         <ArrowBackIosIcon onClick={goBack} />
-        <div style={{ flex: 3 }}>
-          <p className='create-account-text'>Update Profile</p>
-          <input
-            type='text'
-            placeholder='First Name'
-            name='firstname'
-            className='input-text'
-            value={firstname}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <input
-            type='text'
-            placeholder='Last Name'
-            name='lastname'
-            className='input-text'
-            value={lastname}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <input
-            type='text'
-            placeholder='Bio'
-            name='bio'
-            className='input-text'
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-          />
-          <input
-            type='text'
-            placeholder='Mobile'
-            name='mobile'
-            className='input-text'
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-          />
-          <input
-            type='text'
-            placeholder='Address'
-            name='address'
-            className='input-text'
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <input
-            type='text'
-            placeholder='Discord'
-            name='gameprofile'
-            className='input-text'
-            value={gameprofile}
-            onChange={(e) => setGameProfile(e.target.value)}
-          />
+      </div>
+      <div className='flex flex-col gap-3 justify-center items-center'>
+        <p className='text-rose-500'>Update Profile</p>
+        <input
+          type='text'
+          placeholder='First Name'
+          name='firstname'
+          value={firstname}
+          className='input input-bordered input-info w-80'
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Last Name'
+          name='lastname'
+          value={lastname}
+          className='input input-bordered input-info w-80'
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Bio'
+          name='bio'
+          value={bio}
+          className='input input-bordered input-info w-80'
+          onChange={(e) => setBio(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Mobile'
+          name='mobile'
+          value={mobile}
+          className='input input-bordered input-info w-80'
+          onChange={(e) => setMobile(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Address'
+          name='address'
+          value={address}
+          className='input input-bordered input-info w-80'
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='Discord'
+          name='gameprofile'
+          value={gameprofile}
+          className='input input-bordered input-info w-80'
+          onChange={(e) => setGameProfile(e.target.value)}
+        />
 
-          <button className='register-btn' onClick={handleUpdate}>
-            Update
-          </button>
-        </div>
+        <button
+          onClick={handleUpdate}
+          className='rounded-full p-2 w-24 my-4 bg-logo-text-green text-zinc-950'
+        >
+          Update
+        </button>
       </div>
     </div>
   );

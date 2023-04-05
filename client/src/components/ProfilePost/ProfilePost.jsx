@@ -3,10 +3,12 @@ import "./profilePost.css";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ForumIcon from "@mui/icons-material/Forum";
 import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ForwardIcon from "@mui/icons-material/Forward";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ProfilePost = ({ details }) => {
   const userDetails = useSelector((state) => state.user);
@@ -107,78 +109,105 @@ const ProfilePost = ({ details }) => {
     setShowComment(!showComment);
   };
   return (
-    <div className='post-container'>
-      <div className='sub-post-container'>
-        <div>
-          <div className='user-details'>
-            <img
-              src={`${user.userimage}`}
-              alt='profileimg'
-              className='profile-img'
-            />
-            <p className='username'>{user.username}</p>
-            <MoreVertIcon className='more-vert-icon' />
+    <div>
+      <div>
+        <div className='flex flex-col card gap-3 bg-slate-900 w-auto mt-7 p-5 shadow-xl'>
+          <div className='flex flex-row gap-3 items-center justify-center'>
+            <div className='avatar'>
+              <div className='w-20 rounded-full'>
+                <img src={`${user.userimage}`} alt='profileimg' />
+              </div>
+            </div>
+
+            <p className='text-logo-text-green text-2xl'>{user.username}</p>
+            {users.user._id === user._id ? (
+              <span className='flex flex-row gap-3'>
+                <Link to={`/edit/post/${details._id}`}>
+                  <EditIcon className='text-slate-50 hover:text-slate-400 ' />
+                </Link>
+                <Link to={`/delete/post/${details._id}`}>
+                  <DeleteForeverIcon className='text-slate-50 hover:text-slate-400 ' />
+                </Link>
+              </span>
+            ) : null}
           </div>
-          <p className='post-text'>{details.desc}</p>
-          <img
-            src={`${details.image}`}
-            alt='userupimg'
-            className='post-image'
-          />
+          <div className='card-body'>
+            <div className='card-title mb-3'>
+              <p className='text-logo-text-green'>{details.desc}</p>
+            </div>
+            <img
+              src={`${details.image}`}
+              alt='userupimg'
+              className='rounded-xl'
+            />
+          </div>
           <div>
-            <div className='reactions'>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <LocalFireDepartmentIcon
-                  className={
-                    heat ? "reaction-icon reaction-icon-heat" : "reaction-icon"
-                  }
-                  onClick={handelHeat}
-                />
-                <p>{count} Heats</p>
+            <div className='flex flex-row gap-6 justify-center items-center card-actions'>
+              <div>
+                <span className='flex flex-row gap-3'>
+                  <LocalFireDepartmentIcon
+                    onClick={handelHeat}
+                    className={
+                      heat === false
+                        ? `text-slate-50 hover:text-slate-400`
+                        : `text-rose-500 hover:text-rose-400`
+                    }
+                  />
+                  <p className='text-logo-text-green'>{count} Heats</p>
+                </span>
               </div>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <ForumIcon
-                  className='reaction-icon'
-                  onClick={handleCommentClick}
-                />
-                <p>{comment.length} Comments</p>
+              <div>
+                <span className='flex flex-row gap-3'>
+                  <ForumIcon
+                    onClick={handleCommentClick}
+                    className='text-slate-50 hover:text-slate-400 '
+                  />
+                  <p className='text-logo-text-green'>
+                    {comment.length} Comments
+                  </p>
+                </span>
               </div>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <ShareIcon className='reaction-icon' onClick={shareOnTwitter} />
-                <p>Share</p>
+              <div>
+                <span className='flex flex-row gap-3'>
+                  <ShareIcon
+                    onClick={shareOnTwitter}
+                    className='text-slate-50 hover:text-slate-400 '
+                  />
+                  <p className='text-logo-text-green'>Share</p>
+                </span>
               </div>
             </div>
             {showComment === true ? (
               <div>
-                <div className='first-comment'>
+                <div className='mt-4 flex flex-row gap-3 justify-center items-center'>
                   <img
                     src={`${users.user.userimage}`}
                     alt='profileimg'
-                    className='profile-img'
+                    className='w-14 rounded-full'
                   />
-                  <p className='log-in-username'>{users.user.username}</p>
+                  <p className='text-logo-text-green'>{users.user.username}</p>
                   <input
                     type='text'
-                    className='log-in-write-comment'
                     placeholder='Write Comment...'
                     onChange={(e) => {
                       setCommentWriting(e.target.value);
                     }}
+                    className='input input-bordered input-success w-full max-w-xs'
                   />
-                  <ForwardIcon
-                    className='add-comment-btn'
-                    onClick={handleComment}
-                  />
+                  <ForwardIcon onClick={handleComment} />
                 </div>
                 {comment.map((items) => (
-                  <div className='all-comments' key={items._id}>
+                  <div
+                    key={items._id}
+                    className='flex flex-row items-center gap-3 mt-3'
+                  >
                     <img
                       src={`${items.userimage}`}
                       alt='profileimg'
                       className='profile-img'
                     />
-                    <p className='comment-username'>{items.username}</p>
-                    <p className='user-comments'>{items.comment}</p>
+                    <p className='text-logo-text-green'>{items.username}</p>
+                    <p className='text-slate-200'>{items.comment}</p>
                   </div>
                 ))}
               </div>

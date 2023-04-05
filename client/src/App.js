@@ -8,6 +8,8 @@ import UpdateProfile from "./components/UpdateProfile/UpdateProfile";
 import UpdateProfilePic from "./components/UpdateProfilePic/UpdateProfilePic";
 import UpdateCoverPic from "./components/UpdateCoverPic/UpdateCoverPic";
 import ChatPage from "./screens/ChatPage/ChatPage";
+import DeletePost from "./components/DeletePost/DeletePost";
+import EditPost from "./components/EditPost/EditPost";
 
 const App = () => {
   const userDetails = useSelector((state) => state.user);
@@ -42,6 +44,8 @@ const App = () => {
             element={<UpdateCoverPic />}
           ></Route>
           <Route path='/chat' element={<ChatPage />}></Route>
+          <Route path='/delete/post/:id' element={<DeletePost />}></Route>
+          <Route path='/edit/post/:id' element={<EditPost />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

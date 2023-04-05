@@ -39,12 +39,12 @@ const ProfileMainPost = () => {
     getPost();
   }, []);
   return (
-    <div className=''>
-      <div>
+    <div className='mt-4 flex flex-col gap-1'>
+      <div className='w-auto'>
         <img
           src={`${user.coverimage}`}
           alt='coverimg'
-          className=''
+          className='rounded-3xl'
         />
       </div>
       {users.user._id === id ? <ContentPost /> : ""}

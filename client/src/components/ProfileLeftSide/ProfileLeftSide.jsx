@@ -5,11 +5,11 @@ import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FaceIcon from "@mui/icons-material/Face";
 import LandscapeIcon from "@mui/icons-material/Landscape";
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import BusinessIcon from '@mui/icons-material/Business';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import BusinessIcon from "@mui/icons-material/Business";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 
 const ProfileLeftSide = () => {
   const navigate = useNavigate();
@@ -78,205 +78,16 @@ const ProfileLeftSide = () => {
 
   return (
     <div className='flex flex-col gap-2'>
-      {/* <div className='container-one'>
-        <img
-          src={`${user.coverimage}`}
-          alt='profcover'
-          className='profile-page-cover'
-        />
-        {users.user._id === uid ? (
-          <LandscapeIcon
-            style={{ color: "white" }}
-            onClick={changeCoverPicHandler}
-          />
-        ) : (
-          ""
-        )}
-        <div style={{ display: "flex", alignItems: "center", marginTop: -40 }}>
-          <img
-            src={`${user.userimage}`}
-            alt='profimage'
-            className='profile-page-image'
-          />
-          {users.user._id === uid ? (
-            <FaceIcon
-              style={{ color: "white" }}
-              onClick={changeProPicHandler}
-            />
-          ) : (
-            ""
-          )}
-          <div>
-            <p
-              style={{
-                marginLeft: 7,
-                marginTop: 35,
-                color: "white",
-                textAlign: "start",
-              }}
-            >
-              {user.firstname} {user.lastname}
-            </p>
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p style={{ color: "white", marginLeft: 20 }}>Bio</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "20px",
-            }}
-          >
-            {user.bio}
-          </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: -30,
-          }}
-        >
-          <p style={{ color: "white", marginLeft: 20 }}>Followers</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "25px",
-            }}
-          >
-            {followersCounter}
-          </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: -30,
-          }}
-        >
-          <p style={{ color: "white", marginLeft: 20 }}>Following</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "25px",
-            }}
-          >
-            {followingCounter}
-          </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: -30,
-          }}
-        >
-          <p style={{ color: "white", marginLeft: 20 }}>Discord</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "25px",
-            }}
-          >
-            {user.gameprofile}
-          </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: -30,
-          }}
-        >
-          <p style={{ color: "white", marginLeft: 20 }}>Address</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "25px",
-            }}
-          >
-            {user.address}
-          </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: -30,
-          }}
-        >
-          <p style={{ color: "white", marginLeft: 20 }}>Email</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "25px",
-            }}
-          >
-            {user.email}
-          </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: -30,
-          }}
-        >
-          <p style={{ color: "white", marginLeft: 20 }}>Phone</p>
-          <p
-            style={{
-              color: "white",
-              marginRight: 50,
-              fontSize: "10px",
-              marginTop: "25px",
-            }}
-          >
-            {user.mobile}
-          </p>
-        </div>
-        {users.user._id === uid ? (
-          <button
-            style={{
-              width: "90px",
-              marginLeft: "90px",
-              marginBottom: "10px",
-              padding: "3px",
-              borderRadius: "15px",
-              border: "None",
-              backgroundColor: "green",
-              color: "white",
-              cursor: "pointer",
-            }}
-            onClick={() => handleEditProfile(user._id)}
-          >
-            Edit
-          </button>
-        ) : (
-          ""
-        )}
-      </div> */}
-      <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3 overflow-y-scroll'>
+      <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3'>
         <div>
           <img
             src={`${user.coverimage}`}
             alt='profcover'
-            className='relative'
+            className='relative rounded-2xl'
           />
           <div
             className='avatar absolute'
-            style={{ top: "220px", left: "70px" }}
+            style={{ top: "310px", left: "130px" }}
           >
             <div className='w-28 rounded-full'>
               <img src={`${user.userimage}`} alt='profimage' />
@@ -304,45 +115,61 @@ const ProfileLeftSide = () => {
             {user.firstname} {user.lastname}
           </h3>
         </div>
-        <div className="flex flex-row gap-3">
+        <div className='flex flex-row gap-3'>
           <div>
-            <h3><span className="text-logo-text-green">Followers:</span> {followersCounter}</h3>
+            <h3>
+              <span className='text-logo-text-green'>Followers:</span>{" "}
+              {followersCounter}
+            </h3>
           </div>
           <div>
-            <h3><span className="text-logo-text-green">Following:</span> {followingCounter}</h3>
+            <h3>
+              <span className='text-logo-text-green'>Following:</span>{" "}
+              {followingCounter}
+            </h3>
           </div>
         </div>
-        <div className="flex flex-col gap-2 justify-start items-center">
-          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
-            <span><MenuBookIcon /></span>
+        <div className='flex flex-col gap-2 justify-start items-center'>
+          <h3 className='text-logo-text-green flex flex-row gap-2 justify-center items-center'>
+            <span>
+              <MenuBookIcon />
+            </span>
             <span>Bio</span>
           </h3>
           <p>{user.bio}</p>
         </div>
-        <div className="flex flex-col gap-2 justify-start items-center">
-          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
-            <span><BusinessIcon /></span>
+        <div className='flex flex-col gap-2 justify-start items-center'>
+          <h3 className='text-logo-text-green flex flex-row gap-2 justify-center items-center'>
+            <span>
+              <BusinessIcon />
+            </span>
             <span>Address</span>
           </h3>
           <p>{user.address}</p>
         </div>
-        <div className="flex flex-col gap-2 justify-start items-center">
-          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
-            <span><AlternateEmailIcon /></span>
+        <div className='flex flex-col gap-2 justify-start items-center'>
+          <h3 className='text-logo-text-green flex flex-row gap-2 justify-center items-center'>
+            <span>
+              <AlternateEmailIcon />
+            </span>
             <span>Email</span>
           </h3>
           <p>{user.email}</p>
         </div>
-        <div className="flex flex-col gap-2 justify-start items-center">
-          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
-            <span><PhoneAndroidIcon /></span>
+        <div className='flex flex-col gap-2 justify-start items-center'>
+          <h3 className='text-logo-text-green flex flex-row gap-2 justify-center items-center'>
+            <span>
+              <PhoneAndroidIcon />
+            </span>
             <span>Mobile</span>
           </h3>
           <p>{user.mobile}</p>
         </div>
-        <div className="flex flex-col gap-2 justify-start items-center">
-          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
-            <span><SportsEsportsIcon /></span>
+        <div className='flex flex-col gap-2 justify-start items-center'>
+          <h3 className='text-logo-text-green flex flex-row gap-2 justify-center items-center'>
+            <span>
+              <SportsEsportsIcon />
+            </span>
             <span>Discord</span>
           </h3>
           <p>{user.gameprofile}</p>

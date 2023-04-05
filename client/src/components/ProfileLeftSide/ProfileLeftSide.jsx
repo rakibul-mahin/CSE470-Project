@@ -5,6 +5,11 @@ import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import FaceIcon from "@mui/icons-material/Face";
 import LandscapeIcon from "@mui/icons-material/Landscape";
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BusinessIcon from '@mui/icons-material/Business';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
 const ProfileLeftSide = () => {
   const navigate = useNavigate();
@@ -72,7 +77,7 @@ const ProfileLeftSide = () => {
   };
 
   return (
-    <div className='left-side'>
+    <div className='flex flex-col gap-2'>
       {/* <div className='container-one'>
         <img
           src={`${user.coverimage}`}
@@ -262,7 +267,7 @@ const ProfileLeftSide = () => {
           ""
         )}
       </div> */}
-      <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3'>
+      <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3 overflow-y-scroll'>
         <div>
           <img
             src={`${user.coverimage}`}
@@ -271,9 +276,9 @@ const ProfileLeftSide = () => {
           />
           <div
             className='avatar absolute'
-            style={{ top: "110px", left: "19px" }}
+            style={{ top: "220px", left: "70px" }}
           >
-            <div className='w-20 rounded-full'>
+            <div className='w-28 rounded-full'>
               <img src={`${user.userimage}`} alt='profimage' />
             </div>
           </div>
@@ -295,10 +300,63 @@ const ProfileLeftSide = () => {
           )}
         </div>
         <div>
-          <h3 className='text-logo-text-green text-2xl'>
+          <h3 className='text-logo-text-green text-2xl mt-5'>
             {user.firstname} {user.lastname}
           </h3>
         </div>
+        <div className="flex flex-row gap-3">
+          <div>
+            <h3><span className="text-logo-text-green">Followers:</span> {followersCounter}</h3>
+          </div>
+          <div>
+            <h3><span className="text-logo-text-green">Following:</span> {followingCounter}</h3>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 justify-start items-center">
+          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
+            <span><MenuBookIcon /></span>
+            <span>Bio</span>
+          </h3>
+          <p>{user.bio}</p>
+        </div>
+        <div className="flex flex-col gap-2 justify-start items-center">
+          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
+            <span><BusinessIcon /></span>
+            <span>Address</span>
+          </h3>
+          <p>{user.address}</p>
+        </div>
+        <div className="flex flex-col gap-2 justify-start items-center">
+          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
+            <span><AlternateEmailIcon /></span>
+            <span>Email</span>
+          </h3>
+          <p>{user.email}</p>
+        </div>
+        <div className="flex flex-col gap-2 justify-start items-center">
+          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
+            <span><PhoneAndroidIcon /></span>
+            <span>Mobile</span>
+          </h3>
+          <p>{user.mobile}</p>
+        </div>
+        <div className="flex flex-col gap-2 justify-start items-center">
+          <h3 className="text-logo-text-green flex flex-row gap-2 justify-center items-center">
+            <span><SportsEsportsIcon /></span>
+            <span>Discord</span>
+          </h3>
+          <p>{user.gameprofile}</p>
+        </div>
+        {users.user._id === uid ? (
+          <button
+            className='rounded-full p-2 w-24 my-4 bg-logo-text-green text-zinc-950'
+            onClick={() => handleEditProfile(user._id)}
+          >
+            Edit
+          </button>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className='mt-3 ml-7 flex flex-col gap-3 card bg-slate-900 justify-center items-center p-3'>

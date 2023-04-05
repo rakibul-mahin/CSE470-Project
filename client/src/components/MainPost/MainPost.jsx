@@ -44,13 +44,13 @@ const MainPost = () => {
   };
 
   return (
-    <div className='main-post'>
+    <div className='flex flex-col gap-3'>
       <ContentPost />
       {post.map((item) =>
         item.map((postDetails) => <Post post={postDetails} />)
       )}
       {hasMorePosts && (
-        <button className='load-more-btn' onClick={handleLoadMore}>
+        <button className='rounded-full p-2 w-28 my-4 bg-logo-text-green text-zinc-950' onClick={handleLoadMore}>
           Load More ...
         </button>
       )}

@@ -39,12 +39,12 @@ const ProfileMainPost = () => {
     getPost();
   }, []);
   return (
-    <div className='profile-main-post'>
+    <div className=''>
       <div>
         <img
           src={`${user.coverimage}`}
           alt='coverimg'
-          className='profile-cover-image'
+          className=''
         />
       </div>
       {users.user._id === id ? <ContentPost /> : ""}

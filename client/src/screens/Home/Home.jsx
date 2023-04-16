@@ -9,9 +9,15 @@ const Home = () => {
     <div>
       <Navbar />
       <div className='flex flex-row gap-2 bg-gray-800'>
-        <LeftSide />
-        <MainPost />
-        <RightSide />
+        <div className='w-auto'>
+          <LeftSide />
+        </div>
+        <div className='w-auto'>
+          <MainPost />
+        </div>
+        <div className='w-auto'>
+          <RightSide />
+        </div>
       </div>
     </div>
   );

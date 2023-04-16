@@ -85,14 +85,14 @@ const ProfileLeftSide = () => {
             alt='profcover'
             className='relative rounded-2xl'
           />
-          <div
+          {/* <div
             className='avatar absolute'
-            style={{ top: "310px", left: "130px" }}
+            style={{ top: "390px", left: "60px" }}
           >
             <div className='w-28 rounded-full'>
               <img src={`${user.userimage}`} alt='profimage' />
             </div>
-          </div>
+          </div> */}
         </div>
         <div>
           {users.user._id === uid ? (

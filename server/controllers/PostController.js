@@ -5,11 +5,10 @@ const mongoose = require("mongoose");
 module.exports = {
   createPost: async (req, res) => {
     try {
-      const { desc, image, video } = req.body;
+      const { desc, image } = req.body;
       const newPost = new Post({
         desc: desc,
         image: image,
-        video: video,
         user: req.user.id,
       });
       await newPost.save();

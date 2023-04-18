@@ -28,7 +28,11 @@ const MainPost = () => {
         if (res.data.length === 0) {
           setHasMorePosts(false);
         } else {
-          setPost((prevPosts) => [...prevPosts, ...res.data]);
+          if (currentPage === 1) {
+            setPost(res.data);
+          } else {
+            setPost((prevPosts) => [...prevPosts, ...res.data]);
+          }
         }
       } catch (err) {
         console.log(err);
@@ -41,6 +45,7 @@ const MainPost = () => {
 
   const handleLoadMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
+    console.log(currentPage);
   };
 
   return (
@@ -50,7 +55,10 @@ const MainPost = () => {
         item.map((postDetails) => <Post post={postDetails} />)
       )}
       {hasMorePosts && (
-        <button className='rounded-full p-2 w-28 my-4 bg-logo-text-green text-zinc-950' onClick={handleLoadMore}>
+        <button
+          className='rounded-full p-2 w-28 my-4 bg-logo-text-green text-zinc-950'
+          onClick={handleLoadMore}
+        >
           Load More ...
         </button>
       )}

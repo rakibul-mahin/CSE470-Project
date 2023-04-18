@@ -78,6 +78,7 @@ const UpdateProfilePic = () => {
   };
   return (
     <div className='mt-9 flex flex-col gap-3 justify-center items-center'>
+      <p className='text-rose-500'>Update Profile Picture</p>
       <label htmlFor='file'>
         <input
           type='file'

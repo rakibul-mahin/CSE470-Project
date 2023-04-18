@@ -75,6 +75,7 @@ const UpdateCoverPic = () => {
   };
   return (
     <div className='mt-9 flex flex-col gap-3 justify-center items-center'>
+      <p className='text-rose-500'>Update Cover Picture</p>
       <label htmlFor='file'>
         <input
           type='file'
